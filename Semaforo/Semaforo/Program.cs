@@ -1,30 +1,27 @@
 ﻿using System;
+using System.Threading;
 
 namespace SimuladorSemaforo
 {
     public class Semaforo
     {
-        // Atributos internos (estado)
         private string colorActual;
         private int segundosEnColor;
         private bool modoIntermitente;
 
-        // Variables para guardar el estado normal cuando pasamos a intermitente
         private string colorGuardado;
         private int segundosGuardados;
 
         public Semaforo(string colorInicial)
         {
-            this.colorActual = colorInicial;
-            this.segundosEnColor = 0;
-            this.modoIntermitente = false;
+            colorActual = colorInicial;
+            segundosEnColor = 0;
+            modoIntermitente = false;
 
-            // Inicializamos el estado guardado por seguridad
-            this.colorGuardado = colorInicial;
-            this.segundosGuardados = 0;
+            colorGuardado = colorInicial;
+            segundosGuardados = 0;
         }
 
-        // Método requerido 1: Avanzar el tiempo
         public void pasoDelTiempo(int segundos)
         {
             for (int i = 0; i < segundos; i++)
@@ -33,33 +30,39 @@ namespace SimuladorSemaforo
             }
         }
 
-        // Método requerido 2: Mostrar el color
         public void mostrarColor()
         {
-            Console.WriteLine($"Color actual: {colorActual}");
+            switch (colorActual)
+            {
+                case "Rojo": Console.ForegroundColor = ConsoleColor.Red; break;
+                case "Verde": Console.ForegroundColor = ConsoleColor.Green; break;
+                case "Amarillo": Console.ForegroundColor = ConsoleColor.Yellow; break;
+                case "Rojo + Amarillo": Console.ForegroundColor = ConsoleColor.DarkYellow; break;
+                default: Console.ResetColor(); break;
+            }
+
+            Console.WriteLine($"LUZ ACTUAL: {colorActual.ToUpper()}");
+            Console.ResetColor();
+
+            Console.WriteLine($"Tiempo transcurrido en este color: {segundosEnColor}s");
         }
 
-        // Método requerido 3: Activar intermitente
         public void ponerEnIntermitente()
         {
             if (!modoIntermitente)
             {
-                // Guardamos en qué punto exacto de la secuencia estábamos
                 colorGuardado = colorActual;
                 segundosGuardados = segundosEnColor;
 
-                // Activamos el modo y forzamos el color inicial
                 modoIntermitente = true;
                 colorActual = "Amarillo";
             }
         }
 
-        // Método requerido 4: Desactivar intermitente
         public void sacarDeIntermitente()
         {
             if (modoIntermitente)
             {
-                // Restauramos la secuencia normal desde donde la dejamos
                 modoIntermitente = false;
                 colorActual = colorGuardado;
                 segundosEnColor = segundosGuardados;
@@ -72,7 +75,6 @@ namespace SimuladorSemaforo
         {
             if (modoIntermitente)
             {
-                // Lógica del modo intermitente (alterna cada segundo)
                 if (colorActual == "Amarillo")
                 {
                     colorActual = "Apagado";
@@ -84,15 +86,13 @@ namespace SimuladorSemaforo
             }
             else
             {
-                // Lógica de la secuencia normal
                 segundosEnColor++;
                 int limiteDeTiempo = ObtenerDuracion(colorActual);
 
-                // Si ya cumplió su ciclo, cambiamos al siguiente color
                 if (segundosEnColor >= limiteDeTiempo)
                 {
                     CambiarSiguienteColor();
-                    segundosEnColor = 0; // Reiniciamos el contador para el nuevo color
+                    segundosEnColor = 0;
                 }
             }
         }
@@ -128,47 +128,64 @@ namespace SimuladorSemaforo
             }
         }
     }
+}
 
-    // Clase principal para probar el código
+namespace SimuladorSemaforo
+{
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("--- Iniciando Semáforo en Verde ---");
-            Semaforo semaforo = new Semaforo("Verde");
-            semaforo.mostrarColor(); // Verde
+            Console.Clear();
+            Console.WriteLine("=== CONFIGURACIÓN DEL SEMÁFORO ===");
+            Console.WriteLine("Escribe el color de inicio (Rojo, Verde, Amarillo):");
+            string colorInicial = Console.ReadLine();
 
-            Console.WriteLine("\n--- Avanzando 20 segundos ---");
-            semaforo.pasoDelTiempo(20);
-            semaforo.mostrarColor(); // Amarillo
+            if (string.IsNullOrEmpty(colorInicial)) colorInicial = "Rojo";
 
-            Console.WriteLine("\n--- Avanzando 2 segundos ---");
-            semaforo.pasoDelTiempo(2);
-            semaforo.mostrarColor(); // Rojo
+            Semaforo miSemaforo = new Semaforo(colorInicial);
+            bool continuar = true;
 
-            Console.WriteLine("\n--- Avanzando 15 segundos (mitad del rojo) ---");
-            semaforo.pasoDelTiempo(15);
-            semaforo.mostrarColor(); // Sigue en Rojo
+            Console.Clear();
+            Console.WriteLine("Simulación lista. Controles:");
+            Console.WriteLine("- Presiona 'I' para modo INTERMITENTE");
+            Console.WriteLine("- Presiona 'N' para modo NORMAL");
+            Console.WriteLine("- Presiona 'ESC' para SALIR");
+            Thread.Sleep(3000);
 
-            Console.WriteLine("\n--- Activando Intermitente por 3 segundos ---");
-            semaforo.ponerEnIntermitente();
-            semaforo.mostrarColor(); // Amarillo
-            semaforo.pasoDelTiempo(1);
-            semaforo.mostrarColor(); // Apagado
-            semaforo.pasoDelTiempo(1);
-            semaforo.mostrarColor(); // Amarillo
-            semaforo.pasoDelTiempo(1);
-            semaforo.mostrarColor(); // Apagado
+            while (continuar)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo tecla = Console.ReadKey(true);
 
-            Console.WriteLine("\n--- Desactivando Intermitente ---");
-            semaforo.sacarDeIntermitente();
-            semaforo.mostrarColor(); // Debería volver a Rojo (habían pasado 15s)
+                    switch (tecla.Key)
+                    {
+                        case ConsoleKey.I:
+                            miSemaforo.ponerEnIntermitente();
+                            break;
+                        case ConsoleKey.N:
+                            miSemaforo.sacarDeIntermitente();
+                            break;
+                        case ConsoleKey.Escape:
+                            continuar = false;
+                            break;
+                    }
+                }
 
-            Console.WriteLine("\n--- Avanzando 15 segundos más ---");
-            semaforo.pasoDelTiempo(15);
-            semaforo.mostrarColor(); // Debería cambiar a Rojo + Amarillo (completó los 30s)
+                Console.Clear();
+                Console.WriteLine("=== SEMÁFORO EN EJECUCIÓN ===");
+                Console.WriteLine("[I] Intermitente | [N] Normal | [ESC] Salir");
+                Console.WriteLine("------------------------------------------");
 
-            Console.ReadLine(); // Para que la consola no se cierre al terminar
+                miSemaforo.mostrarColor();
+
+                miSemaforo.pasoDelTiempo(1);
+                Thread.Sleep(1000);
+            }
+
+            Console.WriteLine("\nPrograma finalizado. Presiona Enter para cerrar.");
+            Console.ReadLine();
         }
     }
 }
