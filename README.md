@@ -1,5 +1,3 @@
-# 💻 Mi Proyecto
-
 <div align="center">
 
   <img src="https://skillicons.dev/icons?i=dotnet" height="80" alt=".NET Logo" />
@@ -9,7 +7,7 @@
   <h1>Soy Matías Rubio</h1>
   
   <p>
-    <kbd>Use .net 8 creo</kbd>
+    Use .net 8 creo
   </p>
 
   <br />
