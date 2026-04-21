@@ -16,8 +16,3 @@
 
 </div>
 
----
-
-<div align="center">
-  <sub>2026 • C# Development</sub>
-</div>
