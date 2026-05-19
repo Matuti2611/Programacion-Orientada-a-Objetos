@@ -15,6 +15,4 @@
   <br />
   <br />
 
-  <sub>Click en el badge superior para descargar el SDK</sub>
-
 </div>
