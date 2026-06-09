@@ -4,13 +4,10 @@
 
   <h1>Soy Matías Rubio</h1>
   
-  <p><strong>Use .net 8 creo</strong></p>
+  <p><strong>Use .net 10</strong></p>
 
   <br />
 
-  <a href="https://dotnet.microsoft.com/es-es/download/dotnet/8.0">
-    <img src="https://img.shields.io/badge/Instalar%20.NET%208-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="Download .NET 8" />
-  </a>
 
   <br />
   <br />
