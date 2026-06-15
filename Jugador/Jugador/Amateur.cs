@@ -1,4 +1,4 @@
-﻿namespace SimuladorDeportes
+namespace Jugador
 {
     public class Amateur : IJugador
     {

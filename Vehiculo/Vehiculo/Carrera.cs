@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 
-namespace SimuladorVehiculos
+namespace Vehiculo
 {
     public class Carrera
     {
-        public void Competir(IVehiculo v1, IVehiculo v2, int segundos)
+        public void competir(IVehiculo v1, IVehiculo v2, int segundos)
         {
             v1.reiniciarPosicion();
             v2.reiniciarPosicion();

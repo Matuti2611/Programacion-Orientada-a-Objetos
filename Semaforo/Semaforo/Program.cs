@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Threading;
 
-namespace SimuladorSemaforo
+namespace Semaforo
 {
     class Program
     {
@@ -10,7 +10,7 @@ namespace SimuladorSemaforo
             Console.Clear();
             Console.WriteLine("=== CONFIGURACIÓN DEL SEMÁFORO ===");
             Console.WriteLine("Escribe el color de inicio (Rojo, Verde, Amarillo):");
-            string colorInicial = Console.ReadLine();
+            string? colorInicial = Console.ReadLine();
 
             if (string.IsNullOrEmpty(colorInicial)) colorInicial = "Rojo";
 

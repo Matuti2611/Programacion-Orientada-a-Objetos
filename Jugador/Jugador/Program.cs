@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace SimuladorDeportes
+namespace Jugador
 {
     class Program
     {

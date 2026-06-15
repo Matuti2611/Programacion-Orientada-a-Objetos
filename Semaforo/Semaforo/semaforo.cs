@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SimuladorSemaforo
+namespace Semaforo
 {
     public class Semaforo
     {
@@ -27,7 +27,7 @@ namespace SimuladorSemaforo
         {
             for (int i = 0; i < segundos; i++)
             {
-                AvanzarUnSegundo();
+                avanzarUnSegundo();
             }
         }
 
@@ -70,7 +70,7 @@ namespace SimuladorSemaforo
             }
         }
 
-        private void AvanzarUnSegundo()
+        private void avanzarUnSegundo()
         {
             if (modoIntermitente)
             {
@@ -86,17 +86,17 @@ namespace SimuladorSemaforo
             else
             {
                 segundosEnColor++;
-                int limiteDeTiempo = ObtenerDuracion(colorActual);
+                int limiteDeTiempo = obtenerDuracion(colorActual);
 
                 if (segundosEnColor >= limiteDeTiempo)
                 {
-                    CambiarSiguienteColor();
+                    cambiarSiguienteColor();
                     segundosEnColor = 0;
                 }
             }
         }
 
-        private int ObtenerDuracion(string color)
+        private int obtenerDuracion(string color)
         {
             switch (color)
             {
@@ -108,7 +108,7 @@ namespace SimuladorSemaforo
             }
         }
 
-        private void CambiarSiguienteColor()
+        private void cambiarSiguienteColor()
         {
             switch (colorActual)
             {

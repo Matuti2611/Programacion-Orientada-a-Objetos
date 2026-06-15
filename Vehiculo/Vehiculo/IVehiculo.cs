@@ -1,4 +1,4 @@
-﻿namespace SimuladorVehiculos
+namespace Vehiculo
 {
     public interface IVehiculo
     {

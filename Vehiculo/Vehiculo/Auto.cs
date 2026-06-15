@@ -1,4 +1,4 @@
-﻿namespace SimuladorVehiculos
+namespace Vehiculo
 {
     public class Auto : IVehiculo
     {

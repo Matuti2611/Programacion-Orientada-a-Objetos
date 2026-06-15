@@ -1,4 +1,4 @@
-﻿namespace SimuladorDeportes
+namespace Jugador
 {
     public interface IJugador
     {

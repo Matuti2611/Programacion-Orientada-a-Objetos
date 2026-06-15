@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace SimuladorVehiculos
+namespace Vehiculo
 {
     class Program
     {
@@ -21,11 +21,11 @@ namespace SimuladorVehiculos
             Carrera pista = new Carrera();
 
             Console.WriteLine("\nCompetencia: Auto vs Camion");
-            pista.Competir(fiat, camion, 10);
+            pista.competir(fiat, camion, 10);
 
             Auto autoEstandar = new Auto(); 
             Console.WriteLine("\nCompetencia: Bicicleta vs Auto Estándar");
-            pista.Competir(bici, autoEstandar, 30);
+            pista.competir(bici, autoEstandar, 30);
 
             Console.ReadLine();
         }

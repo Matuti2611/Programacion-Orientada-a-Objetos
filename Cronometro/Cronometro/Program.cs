@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace SimuladorCronometro
+namespace Cronometro
 {
     class Program
     {
