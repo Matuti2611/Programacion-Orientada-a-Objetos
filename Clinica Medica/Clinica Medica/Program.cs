@@ -31,7 +31,7 @@ namespace Clinica_Medica
                 Console.WriteLine($"{turno.estado.descripcion} | {turno.especialidad.nombre} | {turno.paciente.nombre}");
             }
 
-            Paciente? paciente = context.pacientes.FirstOrDefault(p => p.dni == 27999000);
+            Paciente? paciente = context.pacientes.FirstOrDefault(p => p.dni == 27888111);
             if (paciente != null)
             {
                 Console.WriteLine($"{paciente.nombre} {paciente.apellido}");
